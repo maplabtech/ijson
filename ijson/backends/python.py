@@ -2,7 +2,6 @@
 Pure-python parsing backend.
 '''
 from __future__ import unicode_literals
-import decimal
 import re
 from codecs import getreader
 from json.decoder import scanstring
@@ -90,10 +89,7 @@ def parse_value(lexer, symbol=None, pos=0):
         elif symbol[0] == '"':
             yield ('string', parse_string(symbol))
         else:
-            try:
-                yield ('number', common.number(symbol))
-            except decimal.InvalidOperation:
-                raise UnexpectedSymbol(symbol, pos)
+            yield ('number', common.number(symbol))
     except StopIteration:
         raise common.IncompleteJSONError('Incomplete JSON data')
 

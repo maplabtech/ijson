@@ -1,7 +1,6 @@
 '''
 Backend independent higher level interfaces, common exceptions.
 '''
-import decimal
 
 
 class JSONError(Exception):
@@ -27,7 +26,7 @@ def parse(basic_events):
 
     ('null', None)
     ('boolean', <True or False>)
-    ('number', <int or Decimal>)
+    ('number', <int or float>)
     ('string', <unicode>)
     ('map_key', <str>)
     ('start_map', None)
@@ -152,10 +151,10 @@ def items(prefixed_events, prefix):
 
 def number(str_value):
     '''
-    Converts string with a numeric value into an int or a Decimal.
+    Converts string with a numeric value into an int or a float.
     Used in different backends for consistent number representation.
     '''
-    number = decimal.Decimal(str_value)
+    number = float(str_value)
     if not ('.' in str_value or 'e' in str_value or 'E' in str_value):
         number = int(number)
     return number
